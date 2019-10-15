@@ -1,0 +1,79 @@
+<?php $can_edit = $this->can_i->update_site_setting; ?>
+<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-shadow">
+    <div class="navbar-multiline mr-auto">
+        <span class="navbar-brand" href="#0"><?= hs($group->label) ?> Preferences</span>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminHome') ?>">Home</a></li>
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminSiteSettingIndex') ?>">Site Setting</a></li>
+                <li class="breadcrumb-item">
+                    <a href="<?= $this->router->to('adminSiteSettingSingle', ['group'=>$group->slug]) ?>">
+                        <?= hs($group->label) ?>
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page"><?= hs($item->name) ?></li>
+            </ol>
+        </nav>
+    </div>
+</nav>
+
+<div class="container p-3">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card mb-3">
+                <div class="list-group list-group-flush">
+                    <a href="#0" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <div class="list-group-item-label"><?= hs($item->name) ?></div>
+                        </div>
+                        <small>
+                            <?php if('' === $item->value): ?>
+                                <em class="text-muted">empty</em>
+                            <?php else: ?>
+                                <code class="text-truncate" style="display:block">
+                                    <?= hs($item->value); ?>
+                                </code>
+                            <?php endif; ?>
+                        </small>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="list-group list-group-flush">
+                    <?php foreach($items as $itm): ?>
+                        <?php if($itm->id == $item->id) continue; ?>
+                        <a href="<?= $this->router->to('adminSiteSettingEdit', ['group'=>$group->slug,'item'=>$itm->id]) ?>" class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <div class="list-group-item-label"><?= hs($itm->name) ?></div>
+                            </div>
+                            <small>
+                                <?php if('' === $itm->value): ?>
+                                    <em class="text-muted">empty</em>
+                                <?php else: ?>
+                                    <code class="text-truncate" style="display:block">
+                                        <?= hs($itm->value); ?>
+                                    </code>
+                                <?php endif; ?>
+                            </small>
+                        </a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <form method="POST" class="card needs-validation main" novalidate>
+                <div class="card-header">
+                    <?= hs($item->name) ?>
+                    <div class="float-right">
+                        <button class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <?= $form->csrfField('noob') ?>
+                    <?= $form->field('value') ?>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
