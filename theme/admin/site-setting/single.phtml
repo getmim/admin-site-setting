@@ -1,12 +1,12 @@
 <?php $can_edit = $this->can_i->update_site_setting; ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white navbar-shadow">
     <div class="navbar-multiline mr-auto">
-        <span class="navbar-brand" href="#0"><?= hs($group->label) ?> Preferences</span>
+        <span class="navbar-brand" href="#0"><?= hs($group->name) ?> Preferences</span>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= $this->router->to('adminHome') ?>">Home</a></li>
-                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminSiteSettingIndex') ?>">Site Setting</a></li>
-                <li class="breadcrumb-item active" aria-current="page"><?= hs($group->label) ?></li>
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminSetting') ?>">Setting</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><?= hs($group->name) ?></li>
             </ol>
         </nav>
     </div>
@@ -22,7 +22,7 @@
 
                 <div class="list-group list-group-flush linkfilter" data-input="#setting-filter">
                     <?php foreach($items as $item): ?>
-                        <a href="<?= ($can_edit ? $this->router->to('adminSiteSettingEdit', ['group'=>$group->slug,'item'=>$item->id]) : '#0') ?>" class="list-group-item list-group-item-action" data-text="<?= hs($item->name) ?>">
+                        <a href="<?= ($can_edit ? $this->router->to('adminSiteSettingEdit', ['group'=>$group->name,'item'=>$item->id]) : '#0') ?>" class="list-group-item list-group-item-action" data-text="<?= hs($item->name) ?>">
                             <div class="d-flex w-100 justify-content-between">
                                 <div class="list-group-item-label"><?= hs($item->name) ?></div>
                             </div>

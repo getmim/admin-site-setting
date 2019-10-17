@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'admin-site-setting',
-    '__version' => '0.0.1',
+    '__version' => '0.2.0',
     '__git' => 'git@github.com:getmim/admin-site-setting.git',
     '__license' => 'MIT',
     '__author' => [
@@ -36,12 +36,6 @@ return [
     ],
     'routes' => [
         'admin' => [
-            'adminSiteSettingIndex' => [
-                'path' => [
-                    'value' => '/setting'
-                ],
-                'handler' => 'AdminSiteSetting\\Controller\\Setting::index'
-            ],
             'adminSiteSettingSingle' => [
                 'path' => [
                     'value' => '/setting/(:group)',
@@ -63,23 +57,5 @@ return [
                 'handler' => 'AdminSiteSetting\\Controller\\Setting::edit'
             ]
         ]
-    ],
-    'adminUi' => [
-        'sidebarMenu' => [
-            'items' => [
-                'site-setting' => [
-                    'label' => 'Setting',
-                    'icon' => '<i class="fas fa-tools"></i>',
-                    'route' => ['adminSiteSettingIndex',[],[]],
-                    'priority' => 10000,
-                    'perms' => 'read_site_setting',
-                    'filterable' => true,
-                    'visible' => true
-                ]
-            ]
-        ]
-    ],
-    'adminSiteSetting' => [
-        'editable' => []
     ]
 ];

@@ -18,13 +18,10 @@ class SettingController extends \Admin\Controller
         if(!$this->can_i->update_site_setting)
             return $this->show404();
 
-        $slug  = urldecode($this->req->param->group);
-        $group = $this->config->adminSiteSetting->editable->$slug ?? null;
-        if(!$group)
-            return $this->show404();
-        $group->slug = $slug;
+        $name  = urldecode($this->req->param->group);
+        $group = (object)['name'=>$name];
 
-        $items = SSetting::get(['group'=>$slug], 0, 1, ['name'=>'ASC']) ?? [];
+        $items = SSetting::get(['group'=>$name], 0, 1, ['name'=>'ASC']) ?? [];
         $item  = null;
         $id    = $this->req->param->item;
         foreach($items as $itm){
@@ -40,10 +37,10 @@ class SettingController extends \Admin\Controller
         // let construct the form
         $ffields = (object)[
             'value' => (object)[
-                'label' => $item->name,
-                'nolabel' => true,
-                'type'  => 'text',
-                'rules' => []
+                'label'     => $item->name,
+                'nolabel'   => true,
+                'type'      => 'text',
+                'rules'     => []
             ]
         ];
         switch($item->type){
@@ -76,8 +73,8 @@ class SettingController extends \Admin\Controller
 
         $params = [
             '_meta' => [
-                'title' => 'Site Settings',
-                'menus' => ['site-setting']
+                'title' => 'System Settings',
+                'menus' => ['admin-setting']
             ],
             'items' => $items,
             'item'  => $item,
@@ -92,27 +89,19 @@ class SettingController extends \Admin\Controller
         if(!SSetting::set($set, ['id'=>$item->id]))
             deb(SSetting::lastError());
 
-        $next = $this->router->to('adminSiteSettingSingle', ['group'=>$slug], ['saved'=>$item->id]);
+        // add the log
+        $this->addLog([
+            'user'   => $this->user->id,
+            'object' => $item->id,
+            'parent' => 0,
+            'method' => 2,
+            'type'   => 'site_setting',
+            'original' => $item,
+            'changes'  => $valid
+        ]);
+
+        $next = $this->router->to('adminSiteSettingSingle', ['group'=>$name], ['saved'=>$item->id]);
         $this->res->redirect($next);
-    }
-
-    public function indexAction(){
-        if(!$this->user->isLogin())
-            return $this->loginFirst(1);
-        if(!$this->can_i->read_site_setting)
-            return $this->show404();
-
-        $groups = (array)$this->config->adminSiteSetting->editable;
-
-        $params = [
-            '_meta' => [
-                'title' => 'Site Settings',
-                'menus' => ['site-setting']
-            ],
-            'groups' => array_chunk($groups, 2, true)
-        ];
-
-        return $this->resp('site-setting/index', $params);
     }
 
     public function singleAction(){
@@ -121,18 +110,15 @@ class SettingController extends \Admin\Controller
         if(!$this->can_i->read_site_setting)
             return $this->show404();
 
-        $slug  = urldecode($this->req->param->group);
-        $group = $this->config->adminSiteSetting->editable->$slug ?? null;
-        if(!$group)
-            return $this->show404();
-        $group->slug = $slug;
+        $name  = urldecode($this->req->param->group);
+        $group = (object)['name'=>$name];
 
-        $items = SSetting::get(['group'=>$slug], 0, 1, ['name'=>'ASC']) ?? [];
+        $items = SSetting::get(['group'=>$name], 0, 1, ['name'=>'ASC']) ?? [];
 
         $params = [
             '_meta' => [
-                'title' => 'Site Settings',
-                'menus' => ['site-setting']
+                'title' => 'System Settings',
+                'menus' => ['admin-setting']
             ],
             'items' => $items,
             'group' => $group,

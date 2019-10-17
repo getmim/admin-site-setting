@@ -22,7 +22,11 @@ return [
                 'label' => '/Edit Label/',
                 'icon'  => '/group icon in html/',
                 'info'  => '/group info text/',
-                'route' => ['name',[],[]] // optional
+                'perms' => '/user-perms/',
+                'link' => [
+                    'label' => 'Change settings',
+                    'route' => ['name',[],[]]
+                ]
             ]
         ]
     ]

@@ -1,14 +1,14 @@
 <?php $can_edit = $this->can_i->update_site_setting; ?>
 <nav class="navbar navbar-expand-lg navbar-light bg-white navbar-shadow">
     <div class="navbar-multiline mr-auto">
-        <span class="navbar-brand" href="#0"><?= hs($group->label) ?> Preferences</span>
+        <span class="navbar-brand" href="#0"><?= hs($group->name) ?> Preferences</span>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="<?= $this->router->to('adminHome') ?>">Home</a></li>
-                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminSiteSettingIndex') ?>">Site Setting</a></li>
+                <li class="breadcrumb-item"><a href="<?= $this->router->to('adminSetting') ?>">Setting</a></li>
                 <li class="breadcrumb-item">
-                    <a href="<?= $this->router->to('adminSiteSettingSingle', ['group'=>$group->slug]) ?>">
-                        <?= hs($group->label) ?>
+                    <a href="<?= $this->router->to('adminSiteSettingSingle', ['group'=>$group->name]) ?>">
+                        <?= hs($group->name) ?>
                     </a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page"><?= hs($item->name) ?></li>
@@ -43,7 +43,7 @@
                 <div class="list-group list-group-flush">
                     <?php foreach($items as $itm): ?>
                         <?php if($itm->id == $item->id) continue; ?>
-                        <a href="<?= $this->router->to('adminSiteSettingEdit', ['group'=>$group->slug,'item'=>$itm->id]) ?>" class="list-group-item list-group-item-action">
+                        <a href="<?= $this->router->to('adminSiteSettingEdit', ['group'=>$group->name,'item'=>$itm->id]) ?>" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <div class="list-group-item-label"><?= hs($itm->name) ?></div>
                             </div>
