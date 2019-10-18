@@ -1,7 +1,7 @@
 <div class="card">
-    <div class="list-group list-group-flush">
+    <div class="list-group list-group-flush<?= ($filterid?' linkfilter':'') ?>"<?= ($filterid?' data-input="'.$filterid.'"':'') ?>>
         <?php foreach($items as $itm): ?>
-            <a href="<?= $this->router->to('adminSiteSettingEdit', ['group'=>$group->name,'item'=>$itm->id]) ?>" class="list-group-item list-group-item-action<?= ($itm->id == $active?' active':'') ?>">
+            <a href="<?= $this->router->to('adminSiteSettingEdit', ['group'=>$group->name,'item'=>$itm->id]) ?>" class="list-group-item list-group-item-action<?= ($itm->id == $active?' active':'') ?>" data-text="<?= hs($itm->name) ?>">
                 <div class="d-flex w-100 justify-content-between">
                     <div class="list-group-item-label"><?= hs($itm->name) ?></div>
                 </div>
