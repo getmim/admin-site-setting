@@ -20,46 +20,7 @@
 <div class="container p-3">
     <div class="row">
         <div class="col-md-5">
-            <div class="card mb-3">
-                <div class="list-group list-group-flush">
-                    <a href="#0" class="list-group-item list-group-item-action">
-                        <div class="d-flex w-100 justify-content-between">
-                            <div class="list-group-item-label"><?= hs($item->name) ?></div>
-                        </div>
-                        <small>
-                            <?php if('' === $item->value): ?>
-                                <em class="text-muted">empty</em>
-                            <?php else: ?>
-                                <code class="text-truncate" style="display:block">
-                                    <?= hs($item->value); ?>
-                                </code>
-                            <?php endif; ?>
-                        </small>
-                    </a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="list-group list-group-flush">
-                    <?php foreach($items as $itm): ?>
-                        <?php if($itm->id == $item->id) continue; ?>
-                        <a href="<?= $this->router->to('adminSiteSettingEdit', ['group'=>$group->name,'item'=>$itm->id]) ?>" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <div class="list-group-item-label"><?= hs($itm->name) ?></div>
-                            </div>
-                            <small>
-                                <?php if('' === $itm->value): ?>
-                                    <em class="text-muted">empty</em>
-                                <?php else: ?>
-                                    <code class="text-truncate" style="display:block">
-                                        <?= hs($itm->value); ?>
-                                    </code>
-                                <?php endif; ?>
-                            </small>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+            <?= $this->partial('site-setting/menu__items', ['items'=>$items, 'active'=>$item->id]) ?>
         </div>
         <div class="col-md-7">
             <form method="POST" class="card needs-validation main" novalidate>
