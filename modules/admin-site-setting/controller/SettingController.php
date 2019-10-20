@@ -114,6 +114,8 @@ class SettingController extends \Admin\Controller
         $group = (object)['name'=>$name];
 
         $items = SSetting::get(['group'=>$name], 0, 1, ['name'=>'ASC']) ?? [];
+        if(!$items)
+            return $this->show404();
 
         $params = [
             '_meta' => [
