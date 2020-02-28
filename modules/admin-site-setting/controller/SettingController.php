@@ -100,6 +100,8 @@ class SettingController extends \Admin\Controller
             'changes'  => $valid
         ]);
 
+        $this->event->trigger('site-setting:updated', $item);
+
         $next = $this->router->to('adminSiteSettingSingle', ['group'=>$name], ['saved'=>$item->id]);
         $this->res->redirect($next);
     }
