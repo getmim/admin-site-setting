@@ -2,7 +2,7 @@
 
 return [
     '__name' => 'admin-site-setting',
-    '__version' => '0.3.2',
+    '__version' => '0.4.0',
     '__git' => 'git@github.com:getmim/admin-site-setting.git',
     '__license' => 'MIT',
     '__author' => [
@@ -17,16 +17,16 @@ return [
     '__dependencies' => [
         'required' => [
             [
-                'admin-setting' => NULL 
+                'admin-setting' => null
             ],
             [
-                'admin' => NULL
+                'admin' => null
             ],
             [
-                'site-setting' => NULL
+                'site-setting' => null
             ],
             [
-                'lib-event' => NULL
+                'lib-event' => null
             ]
         ],
         'optional' => []
@@ -61,6 +61,38 @@ return [
                 ],
                 'method' => 'GET|POST',
                 'handler' => 'AdminSiteSetting\\Controller\\Setting::edit'
+            ]
+        ]
+    ],
+    'adminSetting' => [
+        'menus' => [
+            'site-frontpage' => [
+                'module' => ['site'],
+                'label' => 'Frontpage',
+                'icon' => '<i class="fas fa-hand-pointer"></i>',
+                'info' => 'Change site frontpage preference',
+                'perm' => 'update_site_setting',
+                'index' => 0,
+                'options' => [
+                    'site-frontpage' => [
+                        'label' => 'Change settings',
+                        'route' => ['adminSiteSettingSingle',['group' => 'Frontpage']]
+                    ]
+                ]
+            ],
+            'site-social-accounts' => [
+                'module' => ['site'],
+                'label' => 'Social Accounts',
+                'icon' => '<i class="fas fa-share-alt-square"></i>',
+                'info' => 'List of company social accounts',
+                'perm' => 'update_site_setting',
+                'index' => 1000,
+                'options' => [
+                    'site-frontpage' => [
+                        'label' => 'Change settings',
+                        'route' => ['adminSiteSettingSingle', ['group'=>'Social Accounts']]
+                    ]
+                ]
             ]
         ]
     ]
